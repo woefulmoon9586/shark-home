@@ -1,0 +1,74 @@
+---
+import { siteConfig } from '../config';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TagBadge from '../components/TagBadge.astro';
+
+const skills = {
+  languages: ['TypeScript', 'Python', 'Go', 'Rust'],
+  frontend: ['React', 'Vue', 'Astro', 'Tailwind CSS'],
+  backend: ['Node.js', 'PostgreSQL', 'Redis', 'Docker'],
+  tools: ['Git', 'Linux', 'VS Code', 'Neovim'],
+};
+---
+
+<BaseLayout title="关于我">
+  <h1 class="text-2xl font-mono text-accent mb-8">
+    <span class="text-green">/**</span> 关于我 <span class="text-green">*/</span>
+  </h1>
+
+  <!-- Bio -->
+  <section class="mb-10">
+    <div class="border border-border rounded-lg bg-surface p-6">
+      <p class="text-text leading-relaxed mb-4">
+        你好！我是 {siteConfig.author}，一名全栈开发者，热爱技术与开源。
+      </p>
+      <p class="text-text-muted leading-relaxed">
+        我喜欢探索新技术，用代码解决实际问题。平时活跃在 GitHub 上，参与开源项目，也喜欢通过写博客来整理和分享学习心得。
+      </p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="mb-10">
+    <h2 class="text-lg font-mono text-accent mb-4">
+      <span class="text-green">//</span> 技能栈
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {Object.entries(skills).map(([category, items]) => (
+        <div class="border border-border rounded-lg bg-surface p-4">
+          <h3 class="text-sm font-mono text-green mb-2 uppercase">{category}</h3>
+          <div class="flex flex-wrap gap-1.5">
+            {items.map((skill) => (
+              <TagBadge label={skill} variant="accent" />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section>
+    <h2 class="text-lg font-mono text-accent mb-4">
+      <span class="text-green">//</span> 联系方式
+    </h2>
+    <div class="border border-border rounded-lg bg-surface p-6">
+      <ul class="space-y-3 font-mono text-sm">
+        <li>
+          <span class="text-green">$</span>
+          <span class="text-text-muted">github:</span>
+          <a href={siteConfig.github} target="_blank" rel="noopener" class="text-accent ml-2">
+            {siteConfig.github}
+          </a>
+        </li>
+        <li>
+          <span class="text-green">$</span>
+          <span class="text-text-muted">email:</span>
+          <a href={`mailto:${siteConfig.email}`} class="text-accent ml-2">
+            {siteConfig.email}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
