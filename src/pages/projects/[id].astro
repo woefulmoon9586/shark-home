@@ -15,6 +15,6 @@ const { title, techStack } = project.data;
 const { Content } = await render(project);
 ---
 
-<PostLayout title={title} tags={techStack} backLink="/projects/" backLabel="返回项目列表">
+<PostLayout title={title} tags={techStack} backLink={`${import.meta.env.BASE_URL}projects/`} backLabel="返回项目列表">
   <Content />
 </PostLayout>
