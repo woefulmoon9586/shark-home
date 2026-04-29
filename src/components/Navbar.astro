@@ -39,6 +39,8 @@ const currentPath = Astro.url.pathname;
       id="mobile-menu-btn"
       class="sm:hidden text-text-muted hover:text-text p-1"
       aria-label="菜单"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M3 12h18M3 6h18M3 18h18" />
@@ -47,10 +49,11 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <!-- Mobile menu (hidden by default) -->
-  <div id="mobile-menu" class="hidden sm:hidden border-t border-border bg-bg px-6 py-3">
+  <div id="mobile-menu" role="menu" class="hidden sm:hidden border-t border-border bg-bg px-6 py-3">
     {navLinks.map((link) => (
       <a
         href={link.href}
+        role="menuitem"
         class:list={[
           'block py-2 font-mono text-sm',
           currentPath === link.href ? 'text-accent' : 'text-text-muted',
@@ -67,6 +70,8 @@ const currentPath = Astro.url.pathname;
   const menu = document.getElementById('mobile-menu');
   if (btn && menu) {
     btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
       menu.classList.toggle('hidden');
     });
   }

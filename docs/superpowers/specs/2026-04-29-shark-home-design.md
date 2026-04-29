@@ -6,7 +6,7 @@
 
 ## 技术栈
 
-- **框架**：Astro 5（最新稳定版，Content Collections API v2）
+- **框架**：Astro 6（最新稳定版，Content Collections API）
 - **样式**：Tailwind CSS 4，暗色主题，`class` 策略
 - **部署目标**：纯静态生成（SSG），零客户端 JS
 - **语言**：TypeScript

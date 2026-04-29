@@ -1,11 +1,10 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
+import { getPublishedPosts } from '../../lib/collections';
 import PostLayout from '../../layouts/PostLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => {
-    return import.meta.env.PROD ? data.draft !== true : true;
-  });
+  const posts = await getPublishedPosts();
 
   return posts.map((post) => ({
     params: { id: post.id },

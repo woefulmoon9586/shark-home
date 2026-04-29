@@ -1,5 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
+import { siteConfig } from '../config';
+import { getPublishedPosts } from '../lib/collections';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TerminalIntro from '../components/TerminalIntro.astro';
 import ProjectCard from '../components/ProjectCard.astro';
@@ -9,12 +11,21 @@ const featuredProjects = (await getCollection('projects', ({ data }) => {
   return data.featured === true;
 })).sort((a, b) => a.data.order - b.data.order);
 
-const latestPosts = (await getCollection('blog', ({ data }) => {
-  return import.meta.env.PROD ? data.draft !== true : true;
-})).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const latestPosts = (await getPublishedPosts()).slice(0, 3);
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": siteConfig.author,
+  "url": "https://shark.dev",
+  "jobTitle": siteConfig.description,
+  "sameAs": [siteConfig.github],
+};
 ---
 
 <BaseLayout>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
+
   <section class="mb-12">
     <TerminalIntro />
   </section>

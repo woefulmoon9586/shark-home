@@ -1,11 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '../../lib/collections';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 
-const posts = (await getCollection('blog', ({ data }) => {
-  return import.meta.env.PROD ? data.draft !== true : true;
-})).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const posts = await getPublishedPosts();
 ---
 
 <BaseLayout title="博客">
