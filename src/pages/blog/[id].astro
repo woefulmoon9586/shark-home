@@ -17,6 +17,6 @@ const { title, date, tags } = post.data;
 const { Content } = await render(post);
 ---
 
-<PostLayout title={title} tags={tags} date={date} backLink={`${import.meta.env.BASE_URL}blog/`} backLabel="返回博客">
+<PostLayout title={title} tags={tags} date={date} backLink="/blog/" backLabel="返回博客">
   <Content />
 </PostLayout>

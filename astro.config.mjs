@@ -3,8 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   output: 'static',
-  site: 'https://woefulmoon9586.github.io',
-  base: '/shark-home/',
+  site: 'https://home.woefulmoon.top',
   vite: {
     plugins: [tailwindcss()],
   },
