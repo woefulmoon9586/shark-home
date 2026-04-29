@@ -1,0 +1,73 @@
+---
+import { siteConfig } from '../config';
+
+const navLinks = [
+  { href: '/', label: '~/shark' },
+  { href: '/projects', label: '项目' },
+  { href: '/blog', label: '博客' },
+  { href: '/about', label: '关于' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-sm">
+  <div class="mx-auto max-w-4xl flex items-center justify-between px-6 py-3">
+    <a href="/" class="font-mono text-accent font-semibold text-lg hover:opacity-100">
+      {siteConfig.author}
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden sm:flex items-center gap-1">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            'px-3 py-1.5 rounded-md font-mono text-sm transition-colors',
+            currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+              ? 'bg-surface text-accent'
+              : 'text-text-muted hover:text-text hover:bg-surface/50',
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="mobile-menu-btn"
+      class="sm:hidden text-text-muted hover:text-text p-1"
+      aria-label="菜单"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 12h18M3 6h18M3 18h18" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu (hidden by default) -->
+  <div id="mobile-menu" class="hidden sm:hidden border-t border-border bg-bg px-6 py-3">
+    {navLinks.map((link) => (
+      <a
+        href={link.href}
+        class:list={[
+          'block py-2 font-mono text-sm',
+          currentPath === link.href ? 'text-accent' : 'text-text-muted',
+        ]}
+      >
+        {link.label}
+      </a>
+    ))}
+  </div>
+</nav>
+
+<script is:inline>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  }
+</script>

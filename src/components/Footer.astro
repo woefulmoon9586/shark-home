@@ -1,0 +1,20 @@
+---
+import { siteConfig } from '../config';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-border mt-16">
+  <div class="mx-auto max-w-4xl px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-text-muted text-sm">
+    <div class="font-mono">
+      <span class="text-green">&copy;</span> {year} {siteConfig.author}
+    </div>
+    <div class="flex items-center gap-4">
+      <a href={siteConfig.github} target="_blank" rel="noopener" class="hover:text-accent">
+        GitHub
+      </a>
+      <a href={`mailto:${siteConfig.email}`} class="hover:text-accent">
+        邮箱
+      </a>
+    </div>
+  </div>
+</footer>
