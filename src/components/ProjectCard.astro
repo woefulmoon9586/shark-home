@@ -1,0 +1,37 @@
+---
+import TagBadge from './TagBadge.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, description, techStack, github, demo } = project.data;
+---
+
+<div class="group border border-border rounded-lg bg-surface p-5 transition-all hover:border-accent/50 hover:shadow-[0_0_15px_rgba(88,166,255,0.1)]">
+  <h3 class="text-lg font-semibold text-text mb-2">
+    <a href={`/projects/${project.id}/`} class="hover:text-accent">
+      {title}
+    </a>
+  </h3>
+  <p class="text-text-muted text-sm mb-3">{description}</p>
+  <div class="flex flex-wrap gap-1.5 mb-3">
+    {techStack.map((tech: string) => (
+      <TagBadge label={tech} variant="green" />
+    ))}
+  </div>
+  <div class="flex items-center gap-3 text-xs font-mono text-text-muted">
+    {github && (
+      <a href={github} target="_blank" rel="noopener" class="hover:text-accent">
+        GitHub →
+      </a>
+    )}
+    {demo && (
+      <a href={demo} target="_blank" rel="noopener" class="hover:text-accent">
+        Demo →
+      </a>
+    )}
+  </div>
+</div>

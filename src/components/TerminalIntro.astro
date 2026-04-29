@@ -1,0 +1,25 @@
+---
+import { siteConfig } from '../config';
+---
+
+<div class="border border-border rounded-lg bg-surface overflow-hidden">
+  <!-- Terminal title bar -->
+  <div class="flex items-center gap-2 px-4 py-2.5 bg-bg border-b border-border">
+    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+    <div class="w-3 h-3 rounded-full bg-green/80"></div>
+    <span class="ml-2 text-text-muted text-xs font-mono">~/{siteConfig.author.toLowerCase()}</span>
+  </div>
+  <!-- Terminal body -->
+  <div class="p-5 font-mono text-sm leading-relaxed">
+    <div class="text-green mb-1">$ whoami</div>
+    <div class="text-text mb-3">
+      > {siteConfig.description}
+    </div>
+    <div class="text-green mb-1">$ cat intro.txt</div>
+    <div class="text-text-muted">
+      > 你好，我是 {siteConfig.author}，一名热爱技术与开源的全栈开发者。<br />
+      > 这里是我的数字花园，记录项目、思考与学习笔记。
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+---
+interface Props {
+  label: string;
+  variant?: 'green' | 'purple' | 'accent';
+}
+
+const { label, variant = 'accent' } = Astro.props;
+
+const colorMap = {
+  green: 'bg-green/10 text-green',
+  purple: 'bg-purple/10 text-purple',
+  accent: 'bg-accent/10 text-accent',
+};
+---
+
+<span class:list={['inline-block px-2 py-0.5 rounded text-xs font-mono', colorMap[variant]]}>
+  {label}
+</span>
