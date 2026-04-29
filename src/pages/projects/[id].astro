@@ -1,0 +1,20 @@
+---
+import { getCollection, render } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { title, techStack } = project.data;
+const { Content } = await render(project);
+---
+
+<PostLayout title={title} tags={techStack} backLink="/projects/" backLabel="返回项目列表">
+  <Content />
+</PostLayout>
