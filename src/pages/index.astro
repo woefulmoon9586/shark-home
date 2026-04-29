@@ -1,8 +1,48 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TerminalIntro from '../components/TerminalIntro.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import PostCard from '../components/PostCard.astro';
+
+const featuredProjects = (await getCollection('projects', ({ data }) => {
+  return data.featured === true;
+})).sort((a, b) => a.data.order - b.data.order);
+
+const latestPosts = (await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+})).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
 ---
 
 <BaseLayout>
-  <h1 class="text-2xl font-mono text-accent">// 欢迎来到 Shark's Space</h1>
-  <p class="text-text-muted mt-4">页面建设中...</p>
+  <section class="mb-12">
+    <TerminalIntro />
+  </section>
+
+  <section class="mb-12">
+    <h2 class="text-lg font-mono text-accent mb-4">
+      <span class="text-green">//</span> 精选项目
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {featuredProjects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <h2 class="text-lg font-mono text-accent mb-4">
+      <span class="text-green">//</span> 最新文章
+    </h2>
+    <div>
+      {latestPosts.map((post) => (
+        <PostCard post={post} />
+      ))}
+    </div>
+    {latestPosts.length > 0 && (
+      <a href="/blog/" class="inline-block mt-4 text-sm font-mono text-accent">
+        查看全部文章 →
+      </a>
+    )}
+  </section>
 </BaseLayout>
