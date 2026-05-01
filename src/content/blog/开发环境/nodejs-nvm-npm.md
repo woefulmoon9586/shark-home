@@ -33,7 +33,7 @@ nvm --version
 # 输出类似：0.40.1
 ```
 
-> Windows 用户请使用 [nvm-windows](https://github.com/coreybutler/nvm-windows)，命令略有不同。
+> Windows 用户请使用 [nvm-windows](https://github.com/coreybutler/nvm-windows)，安装时建议将安装目录改到 `D:\Program\nvm`，避免占用 C 盘空间。命令略有不同。
 
 ## 安装 Node.js
 

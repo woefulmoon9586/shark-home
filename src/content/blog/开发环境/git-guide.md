@@ -26,7 +26,9 @@ xcode-select --install
 
 下载安装包：https://git-scm.com/download/win
 
-安装时一路默认即可。安装完成后右键桌面，看到「Git Bash Here」就说明成功了。
+> **安装路径**：安装时建议改到 `D:\Program\Git`，避免占用 C 盘空间。其他选项保持默认即可。
+
+安装完成后右键桌面，看到「Git Bash Here」就说明成功了。
 
 > Windows 用户建议使用 **Git Bash** 作为终端，命令和 macOS/Linux 一致。
 
