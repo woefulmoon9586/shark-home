@@ -2,7 +2,7 @@
 title: "Shark Home"
 description: "我的个人主页，使用 Astro + Tailwind CSS 构建"
 techStack: ["Astro", "Tailwind CSS", "TypeScript"]
-github: "https://github.com/shark/shark-home"
+github: "https://github.com/woefulmoon9586/shark-home"
 featured: true
 order: 1
 ---
