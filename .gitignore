@@ -21,6 +21,9 @@ pnpm-debug.log*
 .vscode/
 .idea/
 
+# brainstorm
+.superpowers/
+
 # OS
 .DS_Store
 Thumbs.db
