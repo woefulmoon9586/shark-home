@@ -1,0 +1,135 @@
+<style>
+  .site-bg { background: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; padding: 0; border-radius: 12px; overflow: hidden; border: 1px solid #30363d; }
+  .site-nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; border-bottom: 1px solid #21262d; background: #0d1117; }
+  .site-nav .logo { color: #58a6ff; font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 15px; }
+  .site-nav .links { display: flex; gap: 2px; }
+  .site-nav .links a { color: #8b949e; font-family: 'JetBrains Mono', monospace; font-size: 13px; padding: 6px 12px; border-radius: 6px; text-decoration: none; }
+  .site-nav .links a.active { color: #c9d1d9; }
+  .page-pad { padding: 32px 28px 40px; max-width: 680px; }
+
+  /* Hero - clean, no terminal box */
+  .hero { margin-bottom: 48px; }
+  .hero .cmd { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #7ee787; margin-bottom: 8px; }
+  .hero .cmd span { color: #8b949e; }
+  .hero .title { font-size: 28px; font-weight: 700; color: #c9d1d9; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .hero .sub { font-size: 15px; color: #8b949e; line-height: 1.7; }
+
+  /* Section */
+  .section-head { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b949e; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #21262d; }
+  .section-head .sym { color: #7ee787; margin-right: 6px; }
+
+  /* Project list - clean code style */
+  .proj { display: block; text-decoration: none; padding: 14px 0; border-bottom: 1px solid #161b22; }
+  .proj:last-child { border-bottom: none; }
+  .proj:hover .proj-name { color: #58a6ff; }
+  .proj-top { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+  .proj-name { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; color: #c9d1d9; transition: color 0.15s; }
+  .proj-arrow { color: #30363d; font-family: 'JetBrains Mono', monospace; font-size: 12px; transition: color 0.15s; }
+  .proj:hover .proj-arrow { color: #58a6ff; }
+  .proj-desc { font-size: 13px; color: #8b949e; margin-bottom: 6px; }
+  .proj-tags { display: flex; gap: 6px; }
+  .proj-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7ee787; }
+  .proj-tag::before { content: '#'; color: #30363d; margin-right: 1px; }
+
+  /* Blog list - same clean feel */
+  .blog { display: block; text-decoration: none; padding: 14px 0; border-bottom: 1px solid #161b22; }
+  .blog:last-child { border-bottom: none; }
+  .blog:hover .blog-title { color: #58a6ff; }
+  .blog-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+  .blog-title { font-size: 15px; font-weight: 500; color: #c9d1d9; transition: color 0.15s; }
+  .blog-date { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #484f58; flex-shrink: 0; }
+  .blog-summary { font-size: 13px; color: #8b949e; margin-bottom: 6px; }
+  .blog-tags { display: flex; gap: 6px; }
+  .blog-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #d2a8ff; }
+  .blog-tag::before { content: '#'; color: #30363d; margin-right: 1px; }
+
+  /* More link */
+  .more { display: inline-block; margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8b949e; text-decoration: none; }
+  .more:hover { color: #58a6ff; }
+
+  /* Footer */
+  .site-footer { display: flex; justify-content: space-between; align-items: center; padding: 16px 28px; border-top: 1px solid #21262d; font-size: 12px; font-family: 'JetBrains Mono', monospace; color: #484f58; }
+  .site-footer .copy span { color: #7ee787; }
+  .site-footer .email { color: #8b949e; text-decoration: none; }
+  .site-footer .email:hover { color: #58a6ff; }
+</style>
+
+<div class="site-bg">
+  <div class="site-nav">
+    <span class="logo">SharkPepper</span>
+    <div class="links">
+      <a href="#" class="active">~/shark</a>
+      <a href="#">项目</a>
+      <a href="#">博客</a>
+      <a href="#">关于</a>
+    </div>
+  </div>
+
+  <div class="page-pad">
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="cmd"><span>$</span> whoami</div>
+      <div class="title">SharkPepper</div>
+      <div class="sub">正在努力学习中 · 目标做到全栈开发<br>热爱技术与开源，用代码解决实际问题</div>
+    </div>
+
+    <!-- Projects -->
+    <div class="section-head"><span class="sym">//</span> 精选项目</div>
+
+    <a href="#" class="proj">
+      <div class="proj-top">
+        <span class="proj-name">project-a</span>
+        <span class="proj-arrow">→</span>
+      </div>
+      <div class="proj-desc">简短描述一下这个项目是做什么的</div>
+      <div class="proj-tags"><span class="proj-tag">Vue</span><span class="proj-tag">Node.js</span></div>
+    </a>
+    <a href="#" class="proj">
+      <div class="proj-top">
+        <span class="proj-name">project-b</span>
+        <span class="proj-arrow">→</span>
+      </div>
+      <div class="proj-desc">另一个项目的简要说明</div>
+      <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Redis</span></div>
+    </a>
+    <a href="#" class="proj">
+      <div class="proj-top">
+        <span class="proj-name">project-c</span>
+        <span class="proj-arrow">→</span>
+      </div>
+      <div class="proj-desc">第三个项目的描述文字</div>
+      <div class="proj-tags"><span class="proj-tag">Docker</span><span class="proj-tag">PostgreSQL</span></div>
+    </a>
+
+    <!-- Blog -->
+    <div style="margin-top: 40px;">
+      <div class="section-head"><span class="sym">//</span> 最新文章</div>
+
+      <a href="#" class="blog">
+        <div class="blog-top">
+          <span class="blog-title">文章标题一</span>
+          <span class="blog-date">2026/04/28</span>
+        </div>
+        <div class="blog-summary">这是文章的摘要内容，展示一两句话让读者了解文章主题</div>
+        <div class="blog-tags"><span class="blog-tag">笔记</span><span class="blog-tag">前端</span></div>
+      </a>
+      <a href="#" class="blog">
+        <div class="blog-top">
+          <span class="blog-title">文章标题二</span>
+          <span class="blog-date">2026/04/15</span>
+        </div>
+        <div class="blog-summary">第二篇文章的摘要文字</div>
+        <div class="blog-tags"><span class="blog-tag">后端</span></div>
+      </a>
+
+      <a href="#" class="more">查看全部文章 →</a>
+    </div>
+
+  </div>
+
+  <div class="site-footer">
+    <div class="copy"><span>©</span> 2026 SharkPepper</div>
+    <a href="#" class="email">woefulmoon@163.com</a>
+  </div>
+</div>

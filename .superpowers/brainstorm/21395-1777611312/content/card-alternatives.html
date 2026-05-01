@@ -1,0 +1,146 @@
+<style>
+  .preview-bg { background: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; padding: 28px; border-radius: 12px; border: 1px solid #30363d; }
+  .grid-bg { background-image: radial-gradient(circle at 1px 1px, rgba(139,148,158,0.08) 1px, transparent 0); background-size: 24px 24px; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-family: 'JetBrains Mono', monospace; font-size: 17px; color: #58a6ff; }
+  .section-header .deco { color: #7ee787; }
+  .section-header .line { flex: 1; height: 1px; background: linear-gradient(to right, #30363d, transparent); }
+  .divider { border: none; border-top: 1px solid #21262d; margin: 36px 0; }
+
+  /* A: 终端列表 - ls 风格 */
+  .term-list { font-family: 'JetBrains Mono', monospace; font-size: 13px; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; background: #161b22; }
+  .term-list .bar { display: flex; align-items: center; gap: 6px; padding: 10px 16px; background: #0d1117; border-bottom: 1px solid #30363d; }
+  .term-list .bar .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .term-list .bar .path { color: #8b949e; font-size: 11px; margin-left: 8px; }
+  .term-list .row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #21262d; transition: background 0.15s; cursor: pointer; }
+  .term-list .row:last-child { border-bottom: none; }
+  .term-list .row:hover { background: rgba(88,166,255,0.06); }
+  .term-list .icon { color: #58a6ff; font-size: 12px; flex-shrink: 0; }
+  .term-list .name { color: #c9d1d9; font-weight: 500; }
+  .term-list .desc { color: #8b949e; margin-left: auto; font-size: 12px; text-align: right; }
+  .term-list .meta { display: flex; gap: 5px; margin-left: 12px; flex-shrink: 0; }
+  .term-list .tag { background: rgba(126,231,135,0.1); color: #7ee787; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+
+  /* B: 行内列表 - 无框线 */
+  .inline-list .row { display: flex; align-items: baseline; gap: 12px; padding: 14px 0; border-bottom: 1px solid #21262d; transition: padding-left 0.15s; cursor: pointer; }
+  .inline-list .row:last-child { border-bottom: none; }
+  .inline-list .row:hover { padding-left: 8px; }
+  .inline-list .row:hover .name { color: #58a6ff; }
+  .inline-list .name { color: #c9d1d9; font-weight: 500; font-size: 15px; transition: color 0.15s; }
+  .inline-list .desc { color: #8b949e; font-size: 13px; }
+  .inline-list .tags { margin-left: auto; display: flex; gap: 5px; flex-shrink: 0; }
+  .inline-list .tag { background: rgba(126,231,135,0.1); color: #7ee787; padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+
+  /* C: 表格风格 */
+  .table-style { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .table-style th { text-align: left; color: #8b949e; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: normal; text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px; border-bottom: 1px solid #30363d; }
+  .table-style td { padding: 12px; border-bottom: 1px solid #21262d; }
+  .table-style tr:hover td { background: rgba(88,166,255,0.04); }
+  .table-style .name { color: #c9d1d9; font-weight: 500; }
+  .table-style .desc { color: #8b949e; }
+  .table-style .tag { background: rgba(126,231,135,0.1); color: #7ee787; padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-right: 4px; }
+  .table-style .link { color: #58a6ff; font-family: 'JetBrains Mono', monospace; font-size: 12px; text-decoration: none; }
+
+  .blog-item { padding: 14px 0; border-bottom: 1px solid #21262d; }
+  .blog-item:last-child { border-bottom: none; }
+  .blog-item .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .blog-item .title { color: #c9d1d9; font-size: 14px; font-weight: 500; }
+  .blog-item .date { color: #8b949e; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .blog-item .summary { color: #8b949e; font-size: 12px; margin-bottom: 8px; }
+  .blog-item .tag-p { background: rgba(210,168,255,0.1); color: #d2a8ff; padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-right: 4px; }
+</style>
+
+<div class="preview-bg grid-bg">
+
+  <div class="section-header"><span class="deco">//</span> 方案 A · 终端文件列表<span class="line"></span></div>
+  <div class="term-list">
+    <div class="bar">
+      <div class="dot" style="background:#f85149;opacity:.8"></div>
+      <div class="dot" style="background:#e3b341;opacity:.8"></div>
+      <div class="dot" style="background:#7ee787;opacity:.8"></div>
+      <span class="path">~/projects</span>
+    </div>
+    <div class="row">
+      <span class="icon">▸</span>
+      <span class="name">project-a</span>
+      <span class="desc">简短描述一下这个项目</span>
+      <div class="meta"><span class="tag">Vue</span><span class="tag">Node.js</span></div>
+    </div>
+    <div class="row">
+      <span class="icon">▸</span>
+      <span class="name">project-b</span>
+      <span class="desc">另一个项目的简要说明</span>
+      <div class="meta"><span class="tag">Python</span></div>
+    </div>
+    <div class="row">
+      <span class="icon">▸</span>
+      <span class="name">project-c</span>
+      <span class="desc">第三个项目的描述文字</span>
+      <div class="meta"><span class="tag">Docker</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-header"><span class="deco">//</span> 方案 B · 无框行内列表<span class="line"></span></div>
+  <div class="inline-list">
+    <div class="row">
+      <span class="name">project-a</span>
+      <span class="desc">简短描述一下这个项目</span>
+      <div class="tags"><span class="tag">Vue</span><span class="tag">Node.js</span></div>
+    </div>
+    <div class="row">
+      <span class="name">project-b</span>
+      <span class="desc">另一个项目的简要说明</span>
+      <div class="tags"><span class="tag">Python</span></div>
+    </div>
+    <div class="row">
+      <span class="name">project-c</span>
+      <span class="desc">第三个项目的描述文字</span>
+      <div class="tags"><span class="tag">Docker</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-header"><span class="deco">//</span> 方案 C · 表格风格<span class="line"></span></div>
+  <table class="table-style">
+    <thead>
+      <tr><th>项目</th><th>说明</th><th>技术栈</th><th>链接</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name">project-a</td>
+        <td class="desc">简短描述一下这个项目</td>
+        <td><span class="tag">Vue</span><span class="tag">Node.js</span></td>
+        <td><a class="link" href="#">GitHub →</a></td>
+      </tr>
+      <tr>
+        <td class="name">project-b</td>
+        <td class="desc">另一个项目的简要说明</td>
+        <td><span class="tag">Python</span></td>
+        <td><a class="link" href="#">GitHub →</a></td>
+      </tr>
+      <tr>
+        <td class="name">project-c</td>
+        <td class="desc">第三个项目的描述文字</td>
+        <td><span class="tag">Docker</span></td>
+        <td><a class="link" href="#">Demo →</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="divider">
+
+  <div class="section-header"><span class="deco">//</span> 博客列表（通用无框样式）<span class="line"></span></div>
+  <div class="blog-item">
+    <div class="top"><span class="title">文章标题一</span><span class="date">2026/04/28</span></div>
+    <div class="summary">这是文章的摘要内容</div>
+    <span class="tag-p">笔记</span><span class="tag-p">前端</span>
+  </div>
+  <div class="blog-item">
+    <div class="top"><span class="title">文章标题二</span><span class="date">2026/04/15</span></div>
+    <div class="summary">第二篇文章的摘要</div>
+    <span class="tag-p">后端</span>
+  </div>
+
+</div>
