@@ -2,10 +2,19 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import CategoryTabs from '../../components/CategoryTabs.astro';
+import { groupByCategory } from '../../lib/collections';
 
 const projects = (await getCollection('projects')).sort(
   (a, b) => a.data.order - b.data.order
 );
+
+const groups = groupByCategory(projects);
+const categories = Array.from(groups.entries())
+  .filter(([name]) => name !== '')
+  .map(([name, items]) => ({ name, count: items.length }));
+
+const uncategorized = groups.get('') || [];
 ---
 
 <BaseLayout title="项目">
@@ -14,11 +23,35 @@ const projects = (await getCollection('projects')).sort(
   </h1>
 
   {projects.length > 0 ? (
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      {projects.map((project) => (
-        <ProjectCard project={project} />
+    <>
+      <CategoryTabs categories={categories} basePath="/projects/" current="" />
+
+      {categories.map((cat) => (
+        <div class="mb-8">
+          <h2 class="text-lg font-mono text-accent mb-4">
+            <span class="text-green">//</span> {cat.name}
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {groups.get(cat.name)!.map((project) => (
+              <ProjectCard project={project} />
+            ))}
+          </div>
+        </div>
       ))}
-    </div>
+
+      {uncategorized.length > 0 && (
+        <div class="mb-8">
+          <h2 class="text-lg font-mono text-accent mb-4">
+            <span class="text-green">//</span> 未分类
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {uncategorized.map((project) => (
+              <ProjectCard project={project} />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   ) : (
     <p class="text-text-muted font-mono">// 暂无项目</p>
   )}

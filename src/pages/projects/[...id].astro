@@ -1,0 +1,80 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import PostLayout from '../../layouts/PostLayout.astro';
+import CategoryTabs from '../../components/CategoryTabs.astro';
+import { groupByCategory } from '../../lib/collections';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).sort(
+    (a, b) => a.data.order - b.data.order
+  );
+  const groups = groupByCategory(projects);
+  const categories = Array.from(groups.entries())
+    .filter(([name]) => name !== '')
+    .map(([name, items]) => ({ name, count: items.length }));
+
+  const paths: any[] = [];
+  const categoryNames = new Set(groups.keys());
+
+  // Individual items: 2+ segment IDs like "frontend/sample-vue-app"
+  for (const project of projects) {
+    const parts = project.id.split('/');
+    if (parts.length >= 2) {
+      paths.push({
+        params: { id: project.id },
+        props: { type: 'item' as const, project, categories },
+      });
+    }
+  }
+
+  // Category pages: 1-segment IDs (categories)
+  for (const [catName, catProjects] of groups) {
+    if (catName !== '') {
+      paths.push({
+        params: { id: catName },
+        props: { type: 'category' as const, category: catName, projects: catProjects, categories },
+      });
+    }
+  }
+
+  // Root-level items: 1-segment IDs that aren't categories
+  for (const project of projects) {
+    if (!categoryNames.has(project.id) && !project.id.includes('/')) {
+      paths.push({
+        params: { id: project.id },
+        props: { type: 'item' as const, project, categories },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const props = Astro.props;
+
+// Pre-compute rendered content in frontmatter to avoid await in template
+let renderedContent: Awaited<ReturnType<typeof render>> | null = null;
+if (props.type === 'item') {
+  renderedContent = await render(props.project);
+}
+---
+
+{props.type === 'category' ? (
+  <BaseLayout title={`项目 - ${props.category}`}>
+    <h1 class="text-2xl font-mono text-accent mb-8">
+      <span class="text-green">/**</span> 项目 - {props.category} <span class="text-green">*/</span>
+    </h1>
+    <CategoryTabs categories={props.categories} basePath="/projects/" current={props.category} />
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {props.projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </BaseLayout>
+) : (
+  <PostLayout title={props.project.data.title} tags={props.project.data.techStack} backLink="/projects/" backLabel="返回项目列表">
+    {renderedContent && <renderedContent.Content />}
+  </PostLayout>
+)}

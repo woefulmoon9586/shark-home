@@ -1,0 +1,78 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import PostLayout from '../../layouts/PostLayout.astro';
+import CategoryTabs from '../../components/CategoryTabs.astro';
+import { getPublishedPosts, groupByCategory } from '../../lib/collections';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  const groups = groupByCategory(posts);
+  const categories = Array.from(groups.entries())
+    .filter(([name]) => name !== '')
+    .map(([name, items]) => ({ name, count: items.length }));
+
+  const paths: any[] = [];
+  const categoryNames = new Set(groups.keys());
+
+  // Individual items: 2+ segment IDs like "随笔/hello-world-copy"
+  for (const post of posts) {
+    const parts = post.id.split('/');
+    if (parts.length >= 2) {
+      paths.push({
+        params: { id: post.id },
+        props: { type: 'item' as const, post, categories },
+      });
+    }
+  }
+
+  // Category pages: 1-segment IDs (categories)
+  for (const [catName, catPosts] of groups) {
+    if (catName !== '') {
+      paths.push({
+        params: { id: catName },
+        props: { type: 'category' as const, category: catName, posts: catPosts, categories },
+      });
+    }
+  }
+
+  // Root-level items: 1-segment IDs that aren't categories
+  for (const post of posts) {
+    if (!categoryNames.has(post.id) && !post.id.includes('/')) {
+      paths.push({
+        params: { id: post.id },
+        props: { type: 'item' as const, post, categories },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const props = Astro.props;
+
+// Pre-compute rendered content in frontmatter to avoid await in template
+let renderedContent: Awaited<ReturnType<typeof render>> | null = null;
+if (props.type === 'item') {
+  renderedContent = await render(props.post);
+}
+---
+
+{props.type === 'category' ? (
+  <BaseLayout title={`博客 - ${props.category}`}>
+    <h1 class="text-2xl font-mono text-accent mb-8">
+      <span class="text-green">/**</span> 博客 - {props.category} <span class="text-green">*/</span>
+    </h1>
+    <CategoryTabs categories={props.categories} basePath="/blog/" current={props.category} />
+    <div>
+      {props.posts.map((post) => (
+        <PostCard post={post} />
+      ))}
+    </div>
+  </BaseLayout>
+) : (
+  <PostLayout title={props.post.data.title} tags={props.post.data.tags} date={props.post.data.date} backLink="/blog/" backLabel="返回博客">
+    {renderedContent && <renderedContent.Content />}
+  </PostLayout>
+)}

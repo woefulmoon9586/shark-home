@@ -1,0 +1,39 @@
+---
+interface Props {
+  categories: { name: string; count: number }[];
+  basePath: string;
+  current: string;
+}
+
+const { categories, basePath, current } = Astro.props;
+const totalCount = categories.reduce((sum, c) => sum + c.count, 0);
+---
+
+<div class="flex flex-wrap gap-2 mb-6">
+  <a
+    href={basePath}
+    class:list={[
+      'px-3 py-1.5 rounded-md font-mono text-sm border transition-colors',
+      current === ''
+        ? 'border-accent text-accent bg-accent/10'
+        : 'border-border text-text-muted hover:text-text hover:border-border',
+    ]}
+  >
+    全部
+    <span class="text-text-muted text-xs ml-1">{totalCount}</span>
+  </a>
+  {categories.map((cat) => (
+    <a
+      href={`${basePath}${cat.name}/`}
+      class:list={[
+        'px-3 py-1.5 rounded-md font-mono text-sm border transition-colors',
+        current === cat.name
+          ? 'border-accent text-accent bg-accent/10'
+          : 'border-border text-text-muted hover:text-text hover:border-border',
+      ]}
+    >
+      {cat.name || '未分类'}
+      <span class="text-text-muted text-xs ml-1">{cat.count}</span>
+    </a>
+  ))}
+</div>
