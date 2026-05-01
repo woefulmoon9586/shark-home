@@ -1,7 +1,7 @@
 export const siteConfig = {
-  title: "Shark's Space",
-  description: "全栈开发者 · 热爱开源",
-  author: "Shark",
+  title: "Shark's Home",
+  description: "正在努力学习中 · 目标做到全栈开发",
+  author: "SharkPepper",
   github: "https://github.com/shark",
-  email: "shark@example.com",
+  email: "woefulmoon@163.com",
 };
