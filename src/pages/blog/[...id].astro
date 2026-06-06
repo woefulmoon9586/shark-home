@@ -72,7 +72,7 @@ if (props.type === 'item') {
     </div>
   </BaseLayout>
 ) : (
-  <PostLayout title={props.post.data.title} tags={props.post.data.tags} date={props.post.data.date} backLink="/blog/" backLabel="返回博客">
+  <PostLayout title={props.post.data.title} tags={props.post.data.tags} date={props.post.data.date} displayDate={props.post.data.displayDate} backLink="/blog/" backLabel="返回博客">
     {renderedContent && <renderedContent.Content />}
   </PostLayout>
 )}

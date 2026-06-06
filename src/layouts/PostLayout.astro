@@ -6,15 +6,18 @@ interface Props {
   title: string;
   tags?: string[];
   date?: Date;
+  displayDate?: string;
   backLink: string;
   backLabel: string;
 }
 
-const { title, tags = [], date, backLink, backLabel } = Astro.props;
+const { title, tags = [], date, displayDate, backLink, backLabel } = Astro.props;
 
-const dateStr = date
-  ? date.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' })
-  : null;
+const dateStr = displayDate
+  ? displayDate
+  : date
+    ? date.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' })
+    : null;
 ---
 
 <BaseLayout title={title}>

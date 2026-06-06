@@ -1,43 +1,27 @@
-# Astro Starter Kit: Minimal
+# shark-home
+
+这是一个基于 Astro 的个人站点，博客内容存放在 `src/content/blog`。
+
+## Commands
+
+- `npm install`: 安装依赖
+- `npm run dev`: 启动本地开发环境
+- `npm run build`: 构建生产版本
+- `npm run preview`: 本地预览构建结果
+- `npm run import:wordpress -- <wordpress-export.xml>`: 一次性导入 WordPress 文章和媒体资源
+
+## WordPress 导入
+
+1. 从旧站后台导出标准 WordPress XML。
+2. 在仓库根目录运行：
 
 ```sh
-npm create astro@latest -- --template minimal
+npm run import:wordpress -- ./wordpress-export.xml
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+导入脚本会：
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- 生成文章到 `src/content/blog/<分类>/<slug>.md`
+- 下载图片、视频、PDF 和其他附件到 `public/assets/blog/...`
+- 将文章正文中的旧站资源链接改成项目内本地路径
+- 输出迁移报告到 `docs/blog-import-report.json`

@@ -7,13 +7,15 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, date, tags, summary } = post.data;
+const { title, date, displayDate, tags, summary } = post.data;
 
-const dateStr = date.toLocaleDateString('zh-CN', {
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-});
+const dateStr =
+  displayDate ??
+  date.toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
 ---
 
 <article class="group py-4 border-b border-border last:border-b-0">
