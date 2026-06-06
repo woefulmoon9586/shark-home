@@ -3,7 +3,7 @@ title: "Java学习day06"
 date: "2025-02-25T08:59:18.000Z"
 displayDate: "2025-02-25"
 tags: ["Java"]
-summary: "引入 在最近的学习中，我系统地掌握了 Java 的几个重要知识点，包括 final 关键字、单例设计模式、枚举、抽象类、接口等。为了巩固这些知识，我通过大量的代码实例进行了练习，并最终将这些知识应用到了一个智能家居控制系统的项目中。在这篇博客中，我将分享我的学习过程和代码实例，希望对大家有所帮助。 1. fina..."
+summary: "引入"
 draft: false
 ---
 # 引入
@@ -16,8 +16,7 @@ draft: false
 
 ### 代码实例
 
-```
-
+```java
 // 常量
 final int MAX_VALUE = 100;
 
@@ -35,15 +34,13 @@ final class FinalClass {
     }
 }
 ```
-
 ## 2\. 单例设计模式
 
 单例模式确保一个类只有一个实例，并提供一个全局访问点。
 
 ### 代码实例
 
-```
-
+```java
 public class Singleton {
     private static final Singleton instance = new Singleton();
     private Singleton() {} // 私有构造器
@@ -55,15 +52,13 @@ public class Singleton {
     }
 }
 ```
-
 ## 3\. 枚举
 
 枚举是一种特殊的类，用于定义一组常量。
 
 ### 代码实例
 
-```
-
+```java
 enum Status {
     ON, OFF // 定义两个状态
 }
@@ -78,7 +73,6 @@ class Device {
     }
 }
 ```
-
 ## 4\. 抽象类
 
 抽象类是一种不能实例化的类，通常用于定义子类的通用行为。它可以包含抽象方法（没有具体实现的方法）和具体方法。
@@ -89,8 +83,7 @@ class Device {
 
 ### 代码实例
 
-```
-
+```java
 // 定义抽象类
 abstract class Animal {
     // 抽象方法
@@ -117,7 +110,6 @@ class Cat extends Animal {
     }
 }
 ```
-
 ### 使用场景
 
 -   当多个类有共同的行为，但具体实现不同时，可以将这些行为定义在抽象类中。
@@ -133,8 +125,7 @@ class Cat extends Animal {
 
 ### 代码实例
 
-```
-
+```java
 // 定义接口
 interface Switch {
     void press(); // 抽象方法
@@ -175,7 +166,6 @@ public class Test {
     }
 }
 ```
-
 ### 使用场景
 
 -   当需要定义一组行为规范，但具体的实现由不同的类完成时，适合使用接口。
@@ -195,8 +185,7 @@ public class Test {
 
 ### 对比代码实例
 
-```
-
+```java
 // 抽象类
 abstract class Vehicle {
     abstract void start();
@@ -222,7 +211,6 @@ class Car extends Vehicle implements Electric {
     }
 }
 ```
-
 ## 7\. 项目实战：智能家居控制系统
 
 在学习完上述知识点后，我将它们应用到了一个智能家居控制系统中。以下是项目的完整源代码：
@@ -235,8 +223,7 @@ class Car extends Vehicle implements Electric {
 
 ### 完整代码
 
-```
-
+```java
 @Data
 public class JD implements Switch {
     private String name;
@@ -311,7 +298,6 @@ public static void main(String[] args) {
     }
 }
 ```
-
 ## 总结
 
 以上就是关于final关键字，单例，枚举，抽象以及接口的学习

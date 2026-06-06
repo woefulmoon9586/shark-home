@@ -3,11 +3,9 @@ title: "Java基础入门项目二：石头迷阵"
 date: "2025-03-29T10:16:23.000Z"
 displayDate: "2025-03-29"
 tags: ["Java"]
-summary: "Java Swing 石头迷阵游戏开发详解 今天我要向大家介绍基于Java Swing开发的经典数字拼图游戏——石头迷阵。这是一款有趣又烧脑的游戏，玩家需要通过移动数字方块来恢复初始的有序状态。 游戏特色 经典的4×4数字拼图游戏 使用键盘方向键控制移动 自动计步功能记录玩家移动次数 随机生成可解的游戏初始状态..."
+summary: "Java Swing 石头迷阵游戏开发详解"
 draft: false
 ---
-body {<br /> font-family: 'Microsoft YaHei', Arial, sans-serif;<br /> line-height: 1.8;<br /> color: #333;<br /> max-width: 1200px;<br /> margin: 0 auto;<br /> padding: 20px;<br /> background-color: #f9f9f9;<br /> }</p> <p> h1, h2, h3 {<br /> color: #2c3e50;<br /> margin-top: 30px;<br /> }</p> <p> h1 {<br /> text-align: center;<br /> border-bottom: 2px solid #8e44ad;<br /> padding-bottom: 15px;<br /> margin-bottom: 30px;<br /> color: #6c5ce7;<br /> }</p> <p> h2 {<br /> border-left: 5px solid #6c5ce7;<br /> padding-left: 15px;<br /> margin-top: 40px;<br /> color: #8e44ad;<br /> }</p> <p> h3 {<br /> color: #9b59b6;<br /> margin-top: 25px;<br /> }</p> <p> .code-block {<br /> background-color: #f5f5f5;<br /> border-left: 4px solid #6c5ce7;<br /> padding: 15px;<br /> overflow-x: auto;<br /> margin: 20px 0;<br /> border-radius: 0 5px 5px 0;<br /> font-family: Consolas, monospace;<br /> }</p> <p> .game-feature {<br /> background-color: #f0e6ff;<br /> border: 1px solid #d2b4de;<br /> padding: 20px;<br /> border-radius: 5px;<br /> margin: 20px 0;<br /> }</p> <p> .screenshot {<br /> display: block;<br /> max-width: 80%;<br /> height: auto;<br /> margin: 20px auto;<br /> border: 3px solid #d2b4de;<br /> border-radius: 10px;<br /> box-shadow: 0 5px 15px rgba(0,0,0,0.1);<br /> }</p> <p> .note {<br /> background-color: #e8f8f5;<br /> border-left: 4px solid #1abc9c;<br /> padding: 15px;<br /> margin: 20px 0;<br /> border-radius: 0 5px 5px 0;<br /> }</p> <p> .button {<br /> display: inline-block;<br /> padding: 10px 20px;<br /> background-color: #6c5ce7;<br /> color: white;<br /> text-decoration: none;<br /> border-radius: 5px;<br /> margin: 10px 0;<br /> transition: background-color 0.3s;<br /> }</p> <p> .button:hover {<br /> background-color: #8e44ad;<br /> }</p> <p> .grid-container {<br /> display: grid;<br /> grid-template-columns: repeat(4, 1fr);<br /> gap: 10px;<br /> margin: 20px 0;<br /> }</p> <p> .grid-item {<br /> border: 1px solid #ddd;<br /> padding: 10px;<br /> text-align: center;<br /> background-color: white;<br /> border-radius: 5px;<br /> }<br />  
-
 # Java Swing 石头迷阵游戏开发详解
 
 今天我要向大家介绍基于Java Swing开发的经典数字拼图游戏——石头迷阵。这是一款有趣又烧脑的游戏，玩家需要通过移动数字方块来恢复初始的有序状态。 ![石头迷阵游戏截图](/assets/blog/2025/03/1743243636-stone-maze-game.png)
@@ -73,16 +71,16 @@ this.addKeyListener(new KeyAdapter() {
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
-        if (keyCode == KeyEvent.VK\_UP) {
+        if (keyCode == KeyEvent.VK_UP) {
             moveUp();
         }
-        else if (keyCode == KeyEvent.VK\_DOWN) {
+        else if (keyCode == KeyEvent.VK_DOWN) {
             moveDown();
         }
-        else if (keyCode == KeyEvent.VK\_LEFT) {
+        else if (keyCode == KeyEvent.VK_LEFT) {
             moveLeft();
         }
-        else if (keyCode == KeyEvent.VK\_RIGHT) {
+        else if (keyCode == KeyEvent.VK_RIGHT) {
             moveRight();
         }
     }

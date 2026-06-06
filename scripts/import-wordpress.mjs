@@ -192,6 +192,9 @@ function summarize(excerpt, content) {
 function stripRichText(input) {
   return decodeEntities(
     String(input || '')
+      .replace(/^#{1,6}\s+/gm, ' ')
+      .replace(/```[\s\S]*?```/g, ' ')
+      .replace(/`([^`]+)`/g, '$1')
       .replace(/!\[[^\]]*]\([^)]+\)/g, ' ')
       .replace(/\[[^\]]*]\([^)]+\)/g, ' ')
       .replace(/<video[\s\S]*?<\/video>/gi, ' ')
@@ -199,6 +202,8 @@ function stripRichText(input) {
       .replace(/<iframe[\s\S]*?<\/iframe>/gi, ' ')
       .replace(/<img[^>]*>/gi, ' ')
       .replace(/\[\/?(video|audio)[^\]]*]/gi, ' ')
+      .replace(/\*\*([^*]+)\*\*/g, '$1')
+      .replace(/\*([^*]+)\*/g, '$1')
       .replace(/<style[\s\S]*?<\/style>/gi, ' ')
       .replace(/<script[\s\S]*?<\/script>/gi, ' ')
       .replace(/<[^>]+>/g, ' ')
@@ -208,8 +213,56 @@ function stripRichText(input) {
 }
 
 function summarizeContent(excerpt, content, title) {
-  const source = stripRichText(excerpt) || stripRichText(content) || String(title || '').trim();
+  const source =
+    stripRichText(excerpt) || stripRichText(sanitizeMarkdown(content, title)) || String(title || '').trim();
   return source.length > 160 ? `${source.slice(0, 157).trim()}...` : source;
+}
+
+function unescapeMarkdownCode(code) {
+  return code.replace(/\\([\[\]_*])/g, '$1');
+}
+
+function convertCcShortcodes(text) {
+  return text.replace(
+    /\\?\[cc\s+lang="([^"]+)"\\?\]([\s\S]*?)\\?\[\/cc\\?\]/gi,
+    (_match, lang, code) => `\n\`\`\`${String(lang || '').trim() || 'text'}\n${unescapeMarkdownCode(String(code).trim())}\n\`\`\`\n`
+  );
+}
+
+function stripLeadingCssBlock(text) {
+  return text.replace(
+    /^[\s\S]*?(?:body\s*\{[\s\S]*?)(?=\n(?:(?:#)|!\[|<video|<audio|## |### |#### ))/i,
+    ''
+  );
+}
+
+function stripInlineCssParagraphs(text) {
+  return text
+    .replace(
+      /(?:^|\n)(?:[^\n]*?)?body\s*\{[\s\S]*?(?=\n(?:(?:#)|!\[|<video|<audio|$))/gi,
+      '\n'
+    )
+    .replace(
+      /(?:^|\n)(?:[^\n]*?)?\.gallery\s*\{[\s\S]*?(?=\n(?:(?:#)|!\[|<video|<audio|$))/gi,
+      '\n'
+    );
+}
+
+function sanitizeMarkdown(markdown, title = '') {
+  return normalizeWhitespace(
+    stripInlineCssParagraphs(
+      stripLeadingCssBlock(
+        convertCcShortcodes(String(markdown || ''))
+          .replace(/\\\[系统架构图\\\]/g, '')
+          .replace(/\\_/g, '_')
+      )
+    )
+      .replace(
+        new RegExp(`^${String(title).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s+`, 'i'),
+        ''
+      )
+      .replace(/\n{3,}/g, '\n\n')
+  );
 }
 
 function preprocessWordPressShortcodes(input) {
@@ -569,7 +622,7 @@ async function rewriteHtmlContent(html, post, state, attachmentLinkMap) {
 }
 
 function markdownFromHtml(html) {
-  return normalizeWhitespace(turndown.turndown(html || ''));
+  return sanitizeMarkdown(turndown.turndown(html || ''));
 }
 
 function parseWordPressExport(xmlText) {
@@ -727,7 +780,7 @@ async function main() {
     }
 
     const rewrittenHtml = await rewriteHtmlContent(post.content, post, state, attachmentLinkMap);
-    const markdown = markdownFromHtml(rewrittenHtml);
+    const markdown = sanitizeMarkdown(markdownFromHtml(rewrittenHtml), post.title);
     const fileContent = buildFrontmatter(post, markdown);
     await fs.writeFile(post.outputPath, fileContent, 'utf8');
     state.writtenPosts.push({

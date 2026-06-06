@@ -3,11 +3,9 @@ title: "Java加强项目一：局域网聊天系统"
 date: "2025-04-25T07:57:41.000Z"
 displayDate: "2025-04-25"
 tags: ["Java"]
-summary: "Java局域网聊天系统开发详解 项目概述 本项目实现了一个基于Java Swing和Socket编程的局域网聊天室系统，具备以下功能： 用户通过昵称登录聊天室 实时显示在线用户列表 支持多用户同时聊天 消息广播功能 美观的聊天界面设计 [系统架构图] 系统架构 本系统采用C/S（客户端/服务器）架构，主要分为两部..."
+summary: "Java局域网聊天系统开发详解"
 draft: false
 ---
-body {<br /> font-family: 'Microsoft YaHei', Arial, sans-serif;<br /> line-height: 1.6;<br /> color: #333;<br /> max-width: 1000px;<br /> margin: 0 auto;<br /> padding: 20px;<br /> background-color: #f9f9f9;<br /> }<br /> h1, h2, h3 {<br /> color: #2c3e50;<br /> }<br /> h1 {<br /> border-bottom: 2px solid #3498db;<br /> padding-bottom: 10px;<br /> }<br /> h2 {<br /> border-left: 5px solid #3498db;<br /> padding-left: 10px;<br /> margin-top: 30px;<br /> }<br /> code {<br /> background-color: #f0f0f0;<br /> padding: 2px 5px;<br /> border-radius: 3px;<br /> font-family: Consolas, Monaco, 'Andale Mono', monospace;<br /> }<br /> pre {<br /> background-color: #282c34;<br /> color: #abb2bf;<br /> padding: 15px;<br /> border-radius: 5px;<br /> overflow-x: auto;<br /> line-height: 1.5;<br /> }<br /> .note {<br /> background-color: #e7f5ff;<br /> border-left: 4px solid #3498db;<br /> padding: 10px;<br /> margin: 10px 0;<br /> border-radius: 0 4px 4px 0;<br /> }<br /> .warning {<br /> background-color: #fff3bf;<br /> border-left: 4px solid #ffd43b;<br /> padding: 10px;<br /> margin: 10px 0;<br /> border-radius: 0 4px 4px 0;<br /> }<br /> .image-container {<br /> text-align: center;<br /> margin: 20px 0;<br /> }<br /> img {<br /> max-width: 100%;<br /> height: auto;<br /> border: 1px solid #ddd;<br /> border-radius: 4px;<br /> padding: 5px;<br /> background-color: white;<br /> }<br /> table {<br /> border-collapse: collapse;<br /> width: 100%;<br /> margin: 20px 0;<br /> }<br /> th, td {<br /> border: 1px solid #ddd;<br /> padding: 8px;<br /> text-align: left;<br /> }<br /> th {<br /> background-color: #f2f2f2;<br /> }<br />  
-
 # Java局域网聊天系统开发详解
 
 ## 项目概述
@@ -19,8 +17,6 @@ body {<br /> font-family: 'Microsoft YaHei', Arial, sans-serif;<br /> line-heigh
 -   支持多用户同时聊天
 -   消息广播功能
 -   美观的聊天界面设计
-
-\[系统架构图\]
 
 ## 系统架构
 
@@ -49,7 +45,7 @@ body {<br /> font-family: 'Microsoft YaHei', Arial, sans-serif;<br /> line-heigh
 
 登录界面采用Swing构建，包含昵称输入框和登录按钮：
 
-```
+```java
 public LoginWindow() {
     setTitle("聊天室登录");
     setSize(400, 250);
@@ -77,7 +73,6 @@ public LoginWindow() {
     });
 }
 ```
-
 ### 2\. 聊天主界面 (ChatWindow.java)
 
 聊天主界面采用JSplitPane实现左右分栏布局：
@@ -97,7 +92,7 @@ public LoginWindow() {
 
 独立的线程处理来自服务器的消息：
 
-```
+```java
 public void run() {
     DataInputStream dis = new DataInputStream(is);
     int type;
@@ -115,14 +110,13 @@ public void run() {
     }
 }
 ```
-
 ## 服务端实现详解
 
 ### 1\. 主服务器 (ChatServer.java)
 
 服务端使用多线程处理多个客户端连接：
 
-```
+```java
 public class ChatServer {
     public static final Map<Socket, String> userMap = new HashMap<>();
     
@@ -139,12 +133,11 @@ public class ChatServer {
     }
 }
 ```
-
 ### 2\. 客户端线程处理 (SocketChatThread.java)
 
 每个客户端连接由一个独立线程处理：
 
-```
+```java
 public void run() {
     DataInputStream dis = new DataInputStream(socket.getInputStream());
     int type;
@@ -164,12 +157,11 @@ public void run() {
     }
 }
 ```
-
 ### 3\. 消息广播 (toBroadcast)
 
 服务端实现消息广播功能：
 
-```
+```java
 private void toBroadcast(String nickname, String msg) {
     // 添加时间戳
     String resmsg = nickname + " " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
@@ -182,24 +174,22 @@ private void toBroadcast(String nickname, String msg) {
     }
 }
 ```
-
 ## 核心技术分析
 
 ### 1\. 线程安全处理
 
 系统涉及多个线程操作共享的`userMap`，使用`synchronized`确保线程安全：
 
-```
+```java
 private synchronized void toUpdataUserList() throws Exception {
     // 用户列表更新操作
 }
 ```
-
 ### 2\. UI与网络线程分离
 
 网络消息更新UI通过`SwingUtilities.invokeLater()`解决线程安全问题：
 
-```
+```java
 public void addMsg(String msg) {
     SwingUtilities.invokeLater(() -> {
         messageModel.addElement(msg);
@@ -207,7 +197,6 @@ public void addMsg(String msg) {
     });
 }
 ```
-
 ### 3\. 消息协议设计
 
 使用简单的整数标识消息类型：

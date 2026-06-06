@@ -3,7 +3,7 @@ title: "java学习day07"
 date: "2025-03-23T07:53:20.000Z"
 displayDate: "2025-03-23"
 tags: ["Java"]
-summary: "今天的学习内容非常丰富，涉及类中的代码块、内部类、匿名内部类、Lambda 表达式、String、ArrayList、GUI 编程以及事件处理。 一、类中的成分：代码块 1. 静态代码块 静态代码块用 static 修饰，属于类，在类加载时自动执行一次，通常用于初始化静态变量。 示例代码： public clas..."
+summary: "今天的学习内容非常丰富，涉及类中的代码块、内部类、匿名内部类、Lambda 表达式、String、ArrayList、GUI 编程以及事件处理。"
 draft: false
 ---
 今天的学习内容非常丰富，涉及类中的代码块、内部类、匿名内部类、Lambda 表达式、String、ArrayList、GUI 编程以及事件处理。
@@ -16,8 +16,7 @@ draft: false
 
 #### 示例代码：
 
-```
-
+```java
 public class CodeDemo1 {
     public static String schoolName;
     public static String[] cards = new String[54];
@@ -38,17 +37,14 @@ public class CodeDemo1 {
     }
 }
 ```
-
 #### 运行结果：
 
-```
-
+```java
 ===静态代码块执行了===
 ===main方法执行了===
 schoolName = 黑马程序员
 [A, 2, 3, null, null, ..., null]
 ```
-
 **说明：**
 
 -   静态代码块优先于 `main` 方法执行，用于初始化静态资源。
@@ -59,8 +55,7 @@ schoolName = 黑马程序员
 
 #### 示例代码：
 
-```
-
+```java
 public class CodeDemo2 {
     private String name;
     private String[] direction = new String[4];
@@ -83,17 +78,14 @@ public class CodeDemo2 {
     }
 }
 ```
-
 #### 运行结果：
 
-```
-
+```java
 =======main方法执行了==========
 =========实例代码块执行了=========
 =========实例代码块执行了=========
 =========实例代码块执行了=========
 ```
-
 **说明：**
 
 -   实例代码块在每次创建对象时都会执行，优先于构造方法。
@@ -106,8 +98,7 @@ public class CodeDemo2 {
 
 #### 示例代码：
 
-```
-
+```java
 public class Outer {
     private String name = "外部类";
 
@@ -125,22 +116,18 @@ public class Outer {
     }
 }
 ```
-
 #### 运行结果：
 
-```
-
+```java
 访问外部类的 name：外部类
 ```
-
 ### 2\. 静态内部类
 
 静态内部类用 `static` 修饰，只能访问外部类的静态成员。
 
 #### 示例代码：
 
-```
-
+```java
 public class Outer {
     private static String name = "外部类";
 
@@ -157,22 +144,18 @@ public class Outer {
     }
 }
 ```
-
 #### 运行结果：
 
-```
-
+```java
 访问外部类的 name：外部类
 ```
-
 ### 3\. 局部内部类
 
 局部内部类定义在方法中，作用域仅限于该方法。
 
 #### 示例代码：
 
-```
-
+```java
 public class Outer {
     public void method() {
         class Inner {
@@ -191,22 +174,18 @@ public class Outer {
     }
 }
 ```
-
 #### 运行结果：
 
-```
-
+```java
 局部内部类
 ```
-
 ### 4\. 匿名内部类
 
 匿名内部类是一种没有名字的内部类，通常用于简化代码。
 
 #### 示例代码：
 
-```
-
+```java
 public abstract class Animal {
     public abstract void cry();
 }
@@ -224,14 +203,11 @@ public class Test {
     }
 }
 ```
-
 #### 运行结果：
 
-```
-
+```java
 喵喵喵-----!!~~
 ```
-
 ## 三、GUI 编程与事件处理
 
 ### 1\. 创建 GUI 窗口
@@ -240,8 +216,7 @@ public class Test {
 
 #### 示例代码：
 
-```
-
+```java
 import javax.swing.*;
 
 public class JFrameDemo1 {
@@ -261,15 +236,13 @@ public class JFrameDemo1 {
     }
 }
 ```
-
 ### 2\. 事件处理
 
 通过 `ActionListener` 监听按钮点击事件。
 
 #### 示例代码：
 
-```
-
+```java
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -299,7 +272,6 @@ public class Test {
     }
 }
 ```
-
 ## 四、总结
 
 今天主要学习了类中的代码块、内部类、匿名内部类、GUI 编程以及事件处理。通过这些知识点，我们可以更好地组织代码，编写出简洁高效的 Java 程序。接下来，我会继续深入学习 Java 的更多高级特性，欢迎大家持续关注！

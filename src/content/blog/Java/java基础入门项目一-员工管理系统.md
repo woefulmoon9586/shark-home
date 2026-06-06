@@ -3,11 +3,9 @@ title: "Java基础入门项目一：员工管理系统"
 date: "2025-03-29T10:04:08.000Z"
 displayDate: "2025-03-29"
 tags: ["Java"]
-summary: "员工管理系统项目介绍 Java Swing 员工管理系统项目介绍 我要分享一个基于Java Swing开发的员工管理系统。这个系统具有完整的用户登录、员工信息管理功能，界面友好，操作简单。 项目亮点 基于Java Swing开发的GUI桌面应用 代码结构清晰 使用Lombok简化Java Bean代码 实现了完整..."
+summary: "Java Swing 员工管理系统项目介绍"
 draft: false
 ---
-员工管理系统项目介绍 body { font-family: 'Microsoft YaHei', Arial, sans-serif; line-height: 1.8; color: #333; max-width: 1200px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; } h1, h2, h3 { color: #2c3e50; margin-top: 30px; } h1 { text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 15px; margin-bottom: 30px; } h2 { border-left: 5px solid #3498db; padding-left: 15px; margin-top: 40px; } h3 { color: #2980b9; margin-top: 25px; } .code-block { background-color: #f5f5f5; border-left: 4px solid #3498db; padding: 15px; overflow-x: auto; margin: 20px 0; border-radius: 0 5px 5px 0; } .feature-box { background-color: #e8f4fc; border: 1px solid #d6e9ff; padding: 20px; border-radius: 5px; margin: 20px 0; } .highlight { background-color: #fffde7; padding: 2px 5px; border-radius: 3px; } img { max-width: 100%; height: auto; display: block; margin: 20px auto; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-radius: 5px; } .button { display: inline-block; padding: 10px 20px; background-color: #3498db; color: white; text-decoration: none; border-radius: 5px; margin: 10px 0; transition: background-color 0.3s; } .button:hover { background-color: #2980b9; }
-
 # Java Swing 员工管理系统项目介绍
 
 我要分享一个基于Java Swing开发的员工管理系统。这个系统具有完整的用户登录、员工信息管理功能，界面友好，操作简单。
@@ -29,8 +27,8 @@ draft: false
 
 -   **Employee.java** - 员工实体类
 -   **User.java** - 用户实体类
--   **Login\_UI.java** - 登录界面
--   **Register\_UI.java** - 注册界面
+-   **Login_UI.java** - 登录界面
+-   **Register_UI.java** - 注册界面
 -   **EmployeeInfoUI.java** - 主界面
 -   **AddEmployeeUI.java** - 添加员工界面
 -   **EditEmployeeUI.java** - 编辑员工界面
@@ -88,13 +86,13 @@ loginButton.addActionListener(new ActionListener() {
                     dispose();
                     break;
                 } else {
-                    JOptionPane.showMessageDialog(Login\_UI.this, "密码错误");
+                    JOptionPane.showMessageDialog(Login_UI.this, "密码错误");
                     break;
                 }
             }
         }
         if (!isUsernameExist) {
-            JOptionPane.showMessageDialog(Login\_UI.this, "用户名不存在");
+            JOptionPane.showMessageDialog(Login_UI.this, "用户名不存在");
         }
     }
 });
@@ -135,11 +133,11 @@ public void renderTable() {
 简洁美观的登录界面，包含用户名密码输入框和登录/注册按钮：
 
 // 登录界面初始化代码
-public Login\_UI() {
+public Login_UI() {
     setTitle("登录");
     setSize(400, 300);
     setLocationRelativeTo(null);
-    setDefaultCloseOperation(JFrame.EXIT\_ON\_CLOSE);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
     // 主面板使用GridBagLayout实现精细布局
     JPanel mainPanel = new JPanel(new GridBagLayout());

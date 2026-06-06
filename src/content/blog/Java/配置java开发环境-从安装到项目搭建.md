@@ -3,7 +3,7 @@ title: "配置Java开发环境：从安装到项目搭建"
 date: "2024-11-22T04:45:51.000Z"
 displayDate: "2024-11-22"
 tags: ["Java"]
-summary: "引言 Java是一种广泛使用的编程语言，以其跨平台能力和强大的生态系统而闻名。无论你是新手还是有经验的开发者，配置一个合适的Java开发环境都是开始Java项目的重要一步。本文将带你了解如何从零开始配置Java开发环境，包括安装JDK、设置环境变量、安装IDE，并创建一个简单的Java项目。 步骤1：安装Java..."
+summary: "引言"
 draft: false
 ---
 ## 引言
@@ -26,7 +26,7 @@ Java开发环境的核心是JDK，它包含了Java运行时环境(JRE)、Java编
 
 为了在任何目录下都能使用Java命令，你需要设置环境变量。
 
-1.  **设置JAVA\_HOME**：
+1.  **设置JAVA_HOME**：
     -   在系统的环境变量中添加一个新的变量`JAVA_HOME`，值为JDK的安装路径。
 2.  **更新Path变量**：
     -   将`%JAVA_HOME%\bin`添加到系统的Path变量中，这样你就可以在任何地方使用`java`和`javac`命令。
@@ -52,12 +52,14 @@ Java开发环境的核心是JDK，它包含了Java运行时环境(JRE)、Java编
     
     Java
     
-    \[cc lang="java"\]public class Main {
-        public static void main(String\[\] args) {
+    
+```java
+public class Main {
+        public static void main(String[] args) {
             System.out.println("Hello, World!");
         }
-    }\[/cc\]
-    
+    }
+```
 4.  **运行程序**：
     -   运行`HelloWorld`类，如果一切配置正确，你将在控制台看到输出“Hello, World!”。
 
