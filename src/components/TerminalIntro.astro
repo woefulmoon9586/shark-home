@@ -1,25 +1,75 @@
 ---
+import { ArrowRight, Cpu, Radio, Sparkles, Terminal } from '@lucide/astro';
 import { siteConfig } from '../config';
 ---
 
-<div class="border border-border rounded-lg bg-surface overflow-hidden">
-  <!-- Terminal title bar -->
-  <div class="flex items-center gap-2 px-4 py-2.5 bg-bg border-b border-border">
-    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-    <div class="w-3 h-3 rounded-full bg-green/80"></div>
-    <span class="ml-2 text-text-muted text-xs font-mono">~/{siteConfig.author.toLowerCase()}</span>
-  </div>
-  <!-- Terminal body -->
-  <div class="p-5 font-mono text-sm leading-relaxed">
-    <div class="text-green mb-1">$ whoami</div>
-    <div class="text-text mb-3">
-      > {siteConfig.description}
+<div class="terminal-panel scanline">
+  <div class="relative z-10 flex flex-wrap items-center justify-between gap-3 border-b border-border/80 bg-bg/80 px-3 py-2.5 sm:px-4 sm:py-3">
+    <div class="flex items-center gap-2">
+      <span class="h-3 w-3 rounded-full bg-rose/85 shadow-[0_0_12px_rgba(255,123,114,0.42)]"></span>
+      <span class="h-3 w-3 rounded-full bg-amber/85 shadow-[0_0_12px_rgba(242,204,96,0.36)]"></span>
+      <span class="h-3 w-3 rounded-full bg-green/85 shadow-[0_0_12px_rgba(126,231,135,0.42)]"></span>
+      <span class="ml-2 inline-flex items-center gap-2 font-mono text-xs text-text-muted">
+        <Terminal size={14} aria-hidden="true" />
+        ~/{siteConfig.author.toLowerCase()}/command-center
+      </span>
     </div>
-    <div class="text-green mb-1">$ cat intro.txt</div>
-    <div class="text-text-muted">
-      > 你好，我是 {siteConfig.author}，一名热爱技术与开源的全栈开发者。<br />
-      > 这里是我的数字花园，记录项目、思考与学习笔记。
+    <div class="flex items-center gap-2 font-mono text-xs text-green">
+      <Radio size={14} aria-hidden="true" />
+      ONLINE
+    </div>
+  </div>
+
+  <div class="relative z-10 p-4 sm:p-6 lg:p-7">
+    <div class="mb-5 inline-flex items-center gap-2 rounded border border-green/20 bg-green/10 px-3 py-1.5 font-mono text-xs text-green">
+      <Sparkles size={14} aria-hidden="true" />
+      boot sequence completed
+    </div>
+
+    <h1 class="max-w-4xl text-3xl font-semibold leading-tight text-text sm:text-4xl lg:text-5xl">
+      <span class="block font-mono text-sm text-accent sm:text-lg">Hi, I am {siteConfig.author}</span>
+      <span class="terminal-cursor mt-3 block">正在把学习、项目和灵感编译成自己的系统。</span>
+    </h1>
+
+    <div class="mt-5 grid gap-5 lg:grid-cols-[1fr_18rem]">
+      <div class="font-mono text-sm leading-8">
+        <div class="text-green">$ whoami</div>
+        <div class="mb-4 text-text">&gt; {siteConfig.description}</div>
+        <div class="text-green">$ cat intro.txt</div>
+        <div class="text-text-muted">
+          &gt; 这里是我的数字花园，记录项目、思考与学习笔记。<br />
+          &gt; 偏爱暗色界面、清晰结构，也喜欢把一点点炫酷留给真正需要被记住的地方。
+        </div>
+      </div>
+
+      <dl class="hidden content-start gap-3 border-l border-border/80 pl-5 font-mono text-xs sm:grid">
+        <div>
+          <dt class="text-text-muted">mode</dt>
+          <dd class="mt-1 text-accent">full-stack.learning</dd>
+        </div>
+        <div>
+          <dt class="text-text-muted">stack.signal</dt>
+          <dd class="mt-1 inline-flex items-center gap-2 text-green">
+            <Cpu size={14} aria-hidden="true" />
+            Astro / Java / Vue
+          </dd>
+        </div>
+        <div>
+          <dt class="text-text-muted">output</dt>
+          <dd class="mt-1 text-purple">blog + projects + experiments</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="/projects/" class="command-button command-button-primary px-4">
+        查看项目
+        <ArrowRight size={16} aria-hidden="true" />
+      </a>
+      <a href="/blog/" class="command-button command-button-secondary px-4">
+        进入博客
+        <ArrowRight size={16} aria-hidden="true" />
+      </a>
     </div>
   </div>
 </div>

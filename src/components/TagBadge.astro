@@ -1,18 +1,26 @@
 ---
 interface Props {
   label: string;
-  variant?: 'green' | 'purple' | 'accent';
+  variant?: 'green' | 'purple' | 'accent' | 'amber' | 'muted';
+  size?: 'sm' | 'md';
 }
 
-const { label, variant = 'accent' } = Astro.props;
+const { label, variant = 'accent', size = 'sm' } = Astro.props;
 
 const colorMap = {
-  green: 'bg-green/10 text-green',
-  purple: 'bg-purple/10 text-purple',
-  accent: 'bg-accent/10 text-accent',
+  green: 'border-green/20 bg-green/10 text-green shadow-[0_0_14px_rgba(126,231,135,0.08)]',
+  purple: 'border-purple/20 bg-purple/10 text-purple shadow-[0_0_14px_rgba(210,168,255,0.08)]',
+  accent: 'border-accent/20 bg-accent/10 text-accent shadow-[0_0_14px_rgba(88,166,255,0.08)]',
+  amber: 'border-amber/20 bg-amber/10 text-amber shadow-[0_0_14px_rgba(242,204,96,0.08)]',
+  muted: 'border-border bg-surface-2 text-text-muted',
+};
+
+const sizeMap = {
+  sm: 'px-2 py-0.5 text-xs',
+  md: 'px-2.5 py-1 text-[0.8125rem]',
 };
 ---
 
-<span class:list={['inline-block px-2 py-0.5 rounded text-xs font-mono', colorMap[variant]]}>
+<span class:list={['inline-flex items-center rounded border font-mono leading-relaxed', colorMap[variant], sizeMap[size]]}>
   {label}
 </span>

@@ -7,14 +7,20 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  container?: 'default' | 'wide';
 }
 
 const {
   title = siteConfig.title,
   description = siteConfig.description,
+  container = 'default',
 } = Astro.props;
 
 const pageTitle = title === siteConfig.title ? title : `${title} | ${siteConfig.author}`;
+const mainClass =
+  container === 'wide'
+    ? 'relative z-10 flex-1 mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8'
+    : 'relative z-10 flex-1 mx-auto w-full max-w-4xl px-6 py-10';
 ---
 
 <!doctype html>
@@ -29,9 +35,10 @@ const pageTitle = title === siteConfig.title ? title : `${title} | ${siteConfig.
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <title>{pageTitle}</title>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex min-h-screen flex-col bg-bg text-text antialiased">
+  <a href="#main-content" class="skip-link">跳到主要内容</a>
   <Navbar />
-  <main class="flex-1 mx-auto w-full max-w-4xl px-6 py-10">
+  <main id="main-content" class={mainClass}>
     <slot />
   </main>
   <Footer />

@@ -1,37 +1,107 @@
 ---
+import { ArrowRight, ExternalLink, FolderKanban, GitBranch } from '@lucide/astro';
 import TagBadge from './TagBadge.astro';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  variant?: 'card' | 'featured';
 }
 
-const { project } = Astro.props;
+const { project, variant = 'card' } = Astro.props;
 const { title, description, techStack, github, demo } = project.data;
+const projectHref = `/projects/${project.id}/`;
 ---
 
-<div class="group border border-border rounded-lg bg-surface p-5 transition-all hover:border-accent/50 hover:shadow-[0_0_15px_rgba(88,166,255,0.1)]">
-  <h3 class="text-lg font-semibold text-text mb-2">
-    <a href={`/projects/${project.id}/`} class="hover:text-accent">
-      {title}
-    </a>
-  </h3>
-  <p class="text-text-muted text-sm mb-3">{description}</p>
-  <div class="flex flex-wrap gap-1.5 mb-3">
-    {techStack.map((tech: string) => (
-      <TagBadge label={tech} variant="green" />
-    ))}
-  </div>
-  <div class="flex items-center gap-3 text-xs font-mono text-text-muted">
-    {github && (
-      <a href={github} target="_blank" rel="noopener" class="hover:text-accent">
-        GitHub →
+{variant === 'featured' ? (
+  <article class="glow-card noise-surface group p-6 sm:p-7 lg:p-8">
+    <div class="relative z-10 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
+      <div>
+        <div class="mb-4 flex flex-wrap items-center gap-3">
+          <span class="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-accent/30 bg-accent/10 text-accent shadow-[0_0_24px_rgba(88,166,255,0.16)]">
+            <FolderKanban size={21} aria-hidden="true" />
+          </span>
+          <div>
+            <p class="font-mono text-xs uppercase text-green">featured.build</p>
+            <h3 class="text-2xl font-semibold leading-tight text-text sm:text-3xl">
+              <a href={projectHref} class="hover:text-accent">
+                {title}
+              </a>
+            </h3>
+          </div>
+        </div>
+        <p class="max-w-2xl text-base leading-8 text-text-muted">
+          {description}
+        </p>
+      </div>
+
+      <div class="rounded-lg border border-border/80 bg-bg/45 px-4 py-3 font-mono text-xs text-text-muted">
+        <div class="mb-1 text-green">$ deploy --target static</div>
+        <div class="text-accent">status: featured</div>
+        <div>runtime: zero-js</div>
+      </div>
+    </div>
+
+    <div class="relative z-10 mt-6 flex flex-wrap gap-2">
+      {techStack.map((tech: string) => (
+        <TagBadge label={tech} variant="green" size="md" />
+      ))}
+    </div>
+
+    <div class="relative z-10 mt-7 flex flex-wrap items-center gap-3">
+      <a href={projectHref} class="command-button command-button-primary px-4">
+        查看项目
+        <ArrowRight size={16} aria-hidden="true" />
       </a>
-    )}
-    {demo && (
-      <a href={demo} target="_blank" rel="noopener" class="hover:text-accent">
-        Demo →
+      {github && (
+        <a href={github} target="_blank" rel="noopener" class="command-button command-button-secondary px-4">
+          <GitBranch size={16} aria-hidden="true" />
+          Source
+        </a>
+      )}
+      {demo && (
+        <a href={demo} target="_blank" rel="noopener" class="command-button command-button-secondary px-4">
+          <ExternalLink size={16} aria-hidden="true" />
+          Demo
+        </a>
+      )}
+    </div>
+  </article>
+) : (
+  <article class="glow-card group p-5">
+    <div class="mb-4 flex items-start justify-between gap-4">
+      <h3 class="text-lg font-semibold leading-snug text-text">
+        <a href={projectHref} class="hover:text-accent">
+          {title}
+        </a>
+      </h3>
+      <span class="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-bg/45 text-accent">
+        <FolderKanban size={17} aria-hidden="true" />
+      </span>
+    </div>
+    <p class="mb-4 text-sm leading-7 text-text-muted">{description}</p>
+    <div class="mb-4 flex flex-wrap gap-1.5">
+      {techStack.map((tech: string) => (
+        <TagBadge label={tech} variant="green" />
+      ))}
+    </div>
+    <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-text-muted">
+      <a href={projectHref} class="inline-flex min-h-11 items-center gap-1.5 hover:text-accent">
+        详情
+        <ArrowRight size={14} aria-hidden="true" />
       </a>
-    )}
-  </div>
-</div>
+      {github && (
+        <a href={github} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-1.5 hover:text-accent">
+          <GitBranch size={14} aria-hidden="true" />
+          Source
+        </a>
+      )}
+      {demo && (
+        <a href={demo} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-1.5 hover:text-accent">
+          <ExternalLink size={14} aria-hidden="true" />
+          Demo
+        </a>
+      )}
+    </div>
+  </article>
+)}
